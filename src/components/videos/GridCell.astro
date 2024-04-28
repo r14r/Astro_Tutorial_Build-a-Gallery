@@ -1,0 +1,37 @@
+---
+import type { Video } from '@/videos'
+
+import { getImageUrl } from '@/scripts/utils'
+
+interface Props {
+  noId?: boolean
+  noTitle?: boolean
+  smallFont?: boolean
+  video: Video
+  index?: number
+  isCurrent?: boolean
+}
+
+const { noId, noTitle, video, index, isCurrent } = Astro.props
+---
+
+<div class:list={[`grid__cell`, { 'grid__cell--current': isCurrent }]}>
+  <div class="grid__cell-img">
+    <a href={`/video/${video.id}`} title={video.title}>
+      <img
+        class="grid__cell-img-inner"
+        id={noId ? undefined : `video-${video.id}`}
+        src={getImageUrl(video.id)}
+        alt={video.title}
+        loading={index && index > 8 ? 'lazy' : 'eager'}
+        fetchpriority={index && index <= 4 ? 'high' : 'auto'}
+      />
+    </a>
+
+    <div class:list={[`grid__cell-img-textbox`, { 'grid__cell--smallfont': isCurrent }]}>
+      <div class="grid__cell-img-text">
+        {noTitle ? '' :video.title}
+      </div>
+    </div>
+  </div>
+</div>

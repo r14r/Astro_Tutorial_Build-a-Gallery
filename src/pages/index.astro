@@ -1,0 +1,29 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import GridCell from '@/components/videos/GridCell.astro'
+
+import { videos } from '@/videos'
+---
+
+<Layout title="Linedance Video Gallery">
+  <main>
+    <div class="grid grid--large">
+      <!--
+      <div class="grid__cell grid__cell--padded">
+        <div class="frame">
+          <h1 class="frame__title oh">
+            <span class="oh__inner">Linedance Video Gallery</span>
+          </h1>
+          <nav class="frame__links">
+          </nav>
+        </div>
+      </div>
+      -->
+      {
+        videos.map((video, index) => (
+          <GridCell video={video} index={index} />
+        ))
+      }
+    </div>
+  </main>
+</Layout>

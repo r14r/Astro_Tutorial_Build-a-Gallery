@@ -1,0 +1,49 @@
+---
+import { YouTube } from "astro-lazy-youtube-embed";
+
+import MiniGrid from "@/components/videos/MiniGrid.astro";
+import Layout from "@/layouts/Layout.astro";
+
+import { videos } from "../../videos";
+import { getImageUrl } from "@/scripts/utils";
+
+export async function getStaticPaths() {
+  return videos.map((video) => ({ params: { id: video.id } }));
+}
+
+const { id } = Astro.params;
+
+const video = videos.find((video) => video.id == id);
+const videoIndex = videos.findIndex((video) => video.id == id);
+const videoNumber = video?.id.toString().padStart(2, "0");
+
+const prevVideo = videos[videoIndex - 1];
+const nextVideo = videos[videoIndex + 1];
+---
+
+<Layout title="Linedance Gallery">
+  <div class="content">
+    <div class="content__item" id="item-1">
+      <YouTube videoId={video?.id} title={video?.title} />
+
+      <div transition:name={`video-details-${video?.id}`}>
+        <h2 class="content__item-heading oh">
+          <span class="oh__inner">{video?.title}</span>
+        </h2>
+        <p class="content__item-text">
+          {video?.description}
+        </p>
+      </div>
+    </div>
+
+    <!-- Back Arrow  -->
+    <a href="/" class="back">
+      <svg viewBox="0 0 50 9" width="100%"
+        ><path d="M0 4.5l5-3M0 4.5l5 3M50 4.5h-77"></path></svg
+      >
+    </a>
+
+    <!-- MiniGrid  -->
+    <MiniGrid noTitle currentVideoId={video?.id} />
+  </div>
+</Layout>

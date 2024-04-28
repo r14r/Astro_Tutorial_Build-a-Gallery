@@ -1,0 +1,18 @@
+{
+  "name": "astro-photo-gallery",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^2.2.3",
+    "astro": "^4.5.14",
+    "astro-embed": "^0.7.0",
+    "astro-lazy-youtube-embed": "^0.4.0"
+  }
+}

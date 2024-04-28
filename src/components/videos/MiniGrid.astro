@@ -1,0 +1,41 @@
+---
+import { videos } from '../../videos'
+import GridCell from './GridCell.astro'
+
+interface Props {
+  noTitle?: boolean;
+  smallFont?: boolean;
+  currentVideoId?: string
+}
+
+const { noTitle, smallFont, currentVideoId } = Astro.props
+---
+
+<nav class="grid grid--mini">
+  {
+    videos.map((video) => (
+      <GridCell noId {noTitle} {smallFont} video={video} isCurrent={video.id === currentVideoId} />
+    ))
+  }
+</nav>
+
+<script>
+  let prevScroll = 0
+
+  document.addEventListener('astro:page-load', () => {
+    const miniGrid = document.querySelector('.grid--mini')
+
+    miniGrid &&
+      miniGrid.addEventListener('click', () => {
+        prevScroll = miniGrid.scrollTop
+      })
+  })
+
+  document.addEventListener('astro:after-swap', () => {
+    const miniGrid = document.querySelector('.grid--mini')
+
+    if (miniGrid) {
+      miniGrid.scrollTop = prevScroll
+    }
+  })
+</script>

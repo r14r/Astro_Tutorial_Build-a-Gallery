@@ -1,0 +1,7 @@
+#!/usr/local/bin/bash
+
+FILE="$1"
+
+rm "${FILE/.mp4/.png}"
+
+ffmpeg -ss 00:00:04 -i "${FILE}" -frames:v 1 -start_number 1 "${FILE/.mp4/.png}"
